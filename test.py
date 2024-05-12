@@ -42,7 +42,9 @@ class DeepPreset(object):
 def train_model():
     parser = argparse.ArgumentParser()
     parser.add_argument("--ckpt", type=str, default="/content/dp_woPPL.pth.tar", help='Checkpoint path')
+    parser.add_argument("--dataset", type=str, default="")
     parser.add_argument("--num_epochs", type=int, default="10")
+    parser.add_argument("--batch_size", type=int, default="8")
     args = parser.parse_args()
 
     train_transform = transforms.Compose([
@@ -54,9 +56,9 @@ def train_model():
         transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
     ])
 
-    train_data = datasets.ImageFolder("/content/train_2", transform=train_transform)
+    train_data = datasets.ImageFolder(args.dataset, transform=train_transform)
     print(train_data.class_to_idx)
-    train_data_loader = DataLoader(train_data, batch_size=8, shuffle=True)
+    train_data_loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
     train_data_size = len(train_data)
 
     deep_preset = DeepPreset(args.ckpt)
