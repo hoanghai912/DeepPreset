@@ -107,15 +107,15 @@ def train_model():
             # Compute total accuracy in the whole batch and add to train_acc
             train_acc += acc.item() * inputs.size(0)
 
-            avg_train_loss = train_loss/train_data_size 
-            avg_train_acc = train_acc/train_data_size
+        avg_train_loss = train_loss/train_data_size 
+        avg_train_acc = train_acc/train_data_size
 
-            print("predictions", predictions)
-            print("labels", labels)
-            print("Epoch : {:03d}, Training: Loss - {:.4f}, Accuracy - {:.4f}%".format(epoch+1, avg_train_loss, avg_train_acc*100))
-            
-            # Save if the model has best accuracy till now
-            torch.save(model, 'model_'+str(epoch)+'.pt')
+        print("predictions", predictions)
+        print("labels", labels)
+        print("Epoch : {:03d}, Training: Loss - {:.4f}, Accuracy - {:.4f}%".format(epoch+1, avg_train_loss, avg_train_acc*100))
+        
+        # Save if the model has best accuracy till now
+        torch.save(model.state_dict(), 'model_'+str(epoch)+'.pt')
                 
         
 
